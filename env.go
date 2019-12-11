@@ -63,8 +63,9 @@ func MustGetDuration(name string, deflt time.Duration) (value time.Duration) {
 
 // GetSecret returns the value of Docker secret name
 func GetSecret(name string) (secret string, err error) {
-	var bytes []byte
-	bytes, err = ioutil.ReadFile("/var/run/secrets/" + name)
+	name = os.Getenv("ENV") + "_" + name
+	name = strings.ToUpper(name)
+	bytes, err := ioutil.ReadFile(secretsDir + name)
 	if err != nil {
 		return secret, err
 	}
@@ -74,11 +75,24 @@ func GetSecret(name string) (secret string, err error) {
 // MustGetSecret returns the value of the Docker secret named  $ENV_name;
 // if the environment variable ENV is empty or if the secret cannot be read exit with fatal error
 func MustGetSecret(name string) string {
-	name = MustGetenv("ENV") + "_" + name
-	name = strings.ToUpper(name)
-	bytes, err := ioutil.ReadFile(secretsDir + name)
-	if err != nil {
+	secret, err := GetSecret(name)
+	if err != nil || secret == "" {
 		log.Fatalf("secret " + name + " not configured")
 	}
-	return string(bytes)
+	return secret
+}
+
+// MustGetConfig returns the value of the Docker secret named $ENV_name, if it exists;
+// if the environment variable ENV is empty or if the secret cannot be read, returns
+// the value of environment variable name; if name is not found in either Docker secrets
+// or as an environment variable, exit with fatal error
+func MustGetConfig(name string) string {
+	config, err := GetSecret(name)
+	if err != nil || config == "" {
+		config := os.Getenv(name)
+		if config == "" {
+			log.Fatalf(name + " not configured")
+		}
+	}
+	return config
 }
