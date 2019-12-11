@@ -1,0 +1,11 @@
+bitbucket.org/_metalogic_/color v1.0.0 h1:KFY2KGf8Cykbz0hNtP4FWGax/qtnOkylqBY175+ulSw=
+bitbucket.org/_metalogic_/color v1.0.0/go.mod h1:WPeSaQv86MQRt7kCUpsRXWostcSzR7/9+8Y9ziWjlvA=
+bitbucket.org/_metalogic_/colorable v1.0.0 h1:bgDxEeXjDacTk/PfOQh567X5vamF1s5kgvWL/D5DIAg=
+bitbucket.org/_metalogic_/colorable v1.0.0/go.mod h1:bOy4wMsiuiqH8/6ekeKi7b7fOSiPHfxtnke5QR9yqiM=
+bitbucket.org/_metalogic_/isatty v0.0.0-20190903194811-e4247b43a0ca/go.mod h1:qAL+6ug3wN2srb/No0uTJ5EMTZANf+nIKzGpOelucOA=
+bitbucket.org/_metalogic_/isatty v1.0.0 h1:CSSZ8AV/wCW+BfRZH7cOhuF8rp5+Z8dbrd8cq4WEggw=
+bitbucket.org/_metalogic_/isatty v1.0.0/go.mod h1:qAL+6ug3wN2srb/No0uTJ5EMTZANf+nIKzGpOelucOA=
+bitbucket.org/_metalogic_/log v1.2.2 h1:qC2xlyFY6m7zogYIvbU2tW7AdoZm9bqIzgAbH/O42P8=
+bitbucket.org/_metalogic_/log v1.2.2/go.mod h1:V1LEUjZyO5V9g5razJzZIwAetJefICAjcxuSVz//OGQ=
+golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65 h1:hOY+O8MxdkPV10pNf7/XEHaySCiPKxixMKUshfHsGn0=
+golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
