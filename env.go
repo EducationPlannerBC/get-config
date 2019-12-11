@@ -12,7 +12,8 @@ import (
 
 const secretsDir = "/var/run/secrets"
 
-func ifGetenv(name, deflt string) (value string) {
+// IfGetenv returns the value of environment variable name if found, else deflt
+func IfGetenv(name, deflt string) (value string) {
 	value = os.Getenv(name)
 	if value == "" {
 		value = deflt
@@ -20,7 +21,9 @@ func ifGetenv(name, deflt string) (value string) {
 	return value
 }
 
-func mustGetenv(name string) (v string) {
+// MustGetenv returns the value of environment variable name;
+// if name is not found exit with fatal error
+func MustGetenv(name string) (v string) {
 	v = os.Getenv(name)
 	if v == "" {
 		log.Fatalf("environment variable '%s' is not set", name)
@@ -28,7 +31,9 @@ func mustGetenv(name string) (v string) {
 	return v
 }
 
-func mustGetInt(name string, deflt int) (value int) {
+// MustGetInt returns the int value of environment variable name;
+// if name is not found or value cannot be parsed as an int exit with fatal error
+func MustGetInt(name string, deflt int) (value int) {
 	env := os.Getenv(name)
 	if env != "" {
 		var err error
@@ -41,7 +46,9 @@ func mustGetInt(name string, deflt int) (value int) {
 	return deflt
 }
 
-func mustGetDuration(name string, deflt time.Duration) (value time.Duration) {
+// MustGetDuration returns the time.Duration value of environment variable name;
+// if name is not found or value cannot be parsed as a time.Duration exit with fatal error
+func MustGetDuration(name string, deflt time.Duration) (value time.Duration) {
 	env := os.Getenv(name)
 	if env != "" {
 		var err error
@@ -54,7 +61,8 @@ func mustGetDuration(name string, deflt time.Duration) (value time.Duration) {
 	return deflt
 }
 
-func getSecret(name string) (secret string, err error) {
+// GetSecret returns the value of Docker secret name
+func GetSecret(name string) (secret string, err error) {
 	var bytes []byte
 	bytes, err = ioutil.ReadFile("/var/run/secrets/" + name)
 	if err != nil {
@@ -63,8 +71,10 @@ func getSecret(name string) (secret string, err error) {
 	return string(bytes), nil
 }
 
-func mustGetSecret(name string) string {
-	name = mustGetenv("ENV") + "_" + name
+// MustGetSecret returns the value of the Docker secret named  $ENV_name;
+// if the environment variable ENV is empty or if the secret cannot be read exit with fatal error
+func MustGetSecret(name string) string {
+	name = MustGetenv("ENV") + "_" + name
 	name = strings.ToUpper(name)
 	bytes, err := ioutil.ReadFile(secretsDir + name)
 	if err != nil {
