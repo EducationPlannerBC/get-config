@@ -10,7 +10,7 @@ import (
 	"bitbucket.org/_metalogic_/log"
 )
 
-const secretsDir = "/var/run/secrets"
+const secretsDir = "/var/run/secrets/"
 
 // IfGetenv returns the value of environment variable name if found, else deflt
 func IfGetenv(name, deflt string) (value string) {
@@ -89,14 +89,16 @@ func MustGetSecret(name string) string {
 // the value of environment variable name; if name is not found in either Docker secrets
 // or as an environment variable, exit with fatal error
 func MustGetConfig(name string) string {
-	config, err := GetSecret(name)
-	log.Debug("%v", config)
+	var config string
+	var err error
+	config, err = GetSecret(name)
+	log.Debug("MustGetConfig has " + config + "from GetSecret")
 	if err != nil || config == "" {
-		config := os.Getenv(name)
+		config = os.Getenv(name)
 		if config == "" {
 			log.Fatalf(name + " not configured")
 		}
 	}
-	log.Debug("%v", name)
+	log.Debug("MustGetConfig returning " + config + "for name " + name)
 	return config
 }
