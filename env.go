@@ -65,11 +65,12 @@ func MustGetDuration(name string, deflt time.Duration) (value time.Duration) {
 func GetSecret(name string) (secret string, err error) {
 	name = os.Getenv("ENV") + "_" + name
 	name = strings.ToUpper(name)
-	log.Info("%v", name)
+	log.Info("GetSecret has " + name)
 	bytes, err := ioutil.ReadFile(secretsDir + name)
 	if err != nil {
 		return secret, err
 	}
+	log.Info("string from GetSecret is " + string(bytes))
 	return string(bytes), nil
 }
 
