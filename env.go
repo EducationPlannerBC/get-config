@@ -65,6 +65,7 @@ func MustGetDuration(name string, deflt time.Duration) (value time.Duration) {
 func GetSecret(name string) (secret string, err error) {
 	name = os.Getenv("ENV") + "_" + name
 	name = strings.ToUpper(name)
+	log.Debug("%v", name)
 	bytes, err := ioutil.ReadFile(secretsDir + name)
 	if err != nil {
 		return secret, err
@@ -88,11 +89,13 @@ func MustGetSecret(name string) string {
 // or as an environment variable, exit with fatal error
 func MustGetConfig(name string) string {
 	config, err := GetSecret(name)
+	log.Debug("%v", config)
 	if err != nil || config == "" {
 		config := os.Getenv(name)
 		if config == "" {
 			log.Fatalf(name + " not configured")
 		}
 	}
+	log.Debug("%v", name)
 	return config
 }
